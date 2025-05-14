@@ -16,11 +16,8 @@ export class ThemesComponent implements OnInit {
   }
 
   loadThemes(): void {
-    // Charge tous les thèmes
     this.themeService.getAllThemes().subscribe(allThemes => {
-      // Charge les abonnements de l'utilisateur
       this.themeService.getUserSubscriptions().subscribe(userThemes => {
-        // Marque les thèmes abonnés
         this.themes = allThemes.map(theme => ({
           ...theme,
           subscribed: userThemes.some(t => t.id === theme.id)

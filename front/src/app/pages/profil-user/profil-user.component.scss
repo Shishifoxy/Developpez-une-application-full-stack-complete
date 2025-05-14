@@ -22,13 +22,14 @@
     .save-button {
       background-color: indigo;
       color: white;
+      align-self: center;
     }
   }
 
   h3 {
     margin-top: 2rem;
     margin-bottom: 1rem;
-    -weight: bold;
+    font-weight: bold;
   }
 
   .subscriptions-grid {
@@ -52,6 +53,12 @@
           color: white;
         }
       }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .subscriptions-grid {
+      grid-template-columns: 1fr;
     }
   }
 }

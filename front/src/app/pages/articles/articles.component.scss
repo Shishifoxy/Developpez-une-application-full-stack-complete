@@ -3,45 +3,6 @@
   padding: 2rem;
 }
 
-.articles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
-  gap: 2rem;
-  justify-content: center;
-}
-
-mat-card {
-  background-color: rgba(220, 220, 220, 0.5);
-  padding: 1rem;
-}
-
-mat-card-title {
-  font-weight: bold;
-}
-
-mat-card-subtitle {
-  display: inline-block;
-  margin-right: 2rem;
-  font-size: 14px;
-  color: #333;
-}
-
-.new-article {
-  margin-bottom: 15px;
-}
-
-mat-card-title a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: bold;
-}
-
-/* ✅ Responsive : 1 carte par ligne en mobile */
-@media (max-width: 768px) {
-  .articles-grid {
-    grid-template-columns: 1fr;
-  }
-}
 .new-article {
   margin-bottom: 15px;
 }
@@ -63,4 +24,28 @@ mat-card-title a {
   grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
   gap: 2rem;
   justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+mat-card {
+  background-color: rgba(220, 220, 220, 0.5);
+  padding: 1rem;
+}
+
+mat-card-title a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+}
+
+mat-card-subtitle {
+  display: inline-block;
+  margin-right: 2rem;
+  font-size: 14px;
+  color: #333;
 }

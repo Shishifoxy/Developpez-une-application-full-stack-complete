@@ -5,26 +5,37 @@
   padding: 2rem;
 }
 
+/* ✅ Responsive : 1 carte par ligne en mobile */
+@media (max-width: 768px) {
+  .themes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 mat-card {
   background-color: rgba(240, 240, 240, 0.7);
   padding: 1rem;
+}
 
-  mat-card-title {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
+mat-card-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
 
-  mat-card-content {
-    margin-bottom: 1rem;
-  }
+mat-card-content {
+  margin-bottom: 1rem;
+}
 
-  button {
-    background-color: indigo;
-    color: white;
-  }
+button {
+  background-color: indigo;
+  color: white;
+}
 
-  .subscribed {
-    background-color: grey !important;
-    color: white !important;
-  }
+.subscribed {
+  background-color: grey !important;
+  color: white !important;
+}
+mat-card-actions {
+  display: flex;
+  justify-content: center;
 }
