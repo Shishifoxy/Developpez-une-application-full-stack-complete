@@ -1,6 +1,6 @@
 # MDD API - Backend Spring Boot
 
-Projet backend d'une application de type Medium-like, développée avec Spring Boot et Maven.
+Projet backend d'une application développée avec Spring Boot et Maven.
 
 ---
 
