@@ -1,0 +1,18 @@
+<div class="themes-grid">
+  <mat-card *ngFor="let theme of themes">
+    <mat-card-title>{{ theme.title }}</mat-card-title>
+    <mat-card-content>
+      <p>Description : {{ theme.description }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        [disabled]="theme.subscribed"
+        [ngClass]="{ 'subscribed': theme.subscribed }"
+        (click)="subscribe(theme)"
+      >
+        {{ theme.subscribed ? 'Déjà abonné' : "S'abonner" }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

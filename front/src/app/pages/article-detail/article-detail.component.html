@@ -1,0 +1,41 @@
+<div class="article-detail-container" *ngIf="article">
+  <div class="header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>{{ article.title }}</h2>
+  </div>
+
+  <div class="meta">
+    <span><strong>Date :</strong> {{article.date | date:'dd/MM/yyyy' }}</span>
+    <span><strong>Auteur :</strong> {{ article.author }}</span>
+    <span><strong>Thème :</strong> {{ themeName }}</span>
+  </div>
+
+  <div class="content">
+    <p>{{ article.content }}</p>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="comments-section">
+    <h3>Commentaires</h3>
+
+    <div class="comment" *ngFor="let comment of article.comments">
+      <div class="comment-row">
+        <div class="username">{{ comment.username }}</div>
+        <div class="text">{{ comment.content }}</div>
+      </div>
+    </div>
+
+    <div class="comment-input">
+      <mat-form-field class="input-field" appearance="fill">
+        <input matInput placeholder="Écrivez ici votre commentaire" [(ngModel)]="newComment">
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="submitComment()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+

@@ -1,1 +1,25 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container *ngIf="showNavbar" class="global-container" [hasBackdrop]="true">
+  <mat-sidenav #drawer mode="over" position="end" class="custom-sidenav">
+    <div class="sidenav-content">
+      <div class="top-actions">
+        <button mat-button class="logout" (click)="logout(drawer)">Se déconnecter</button>
+        <a mat-button routerLink="/articles" (click)="drawer.close()">Articles</a>
+        <a mat-button routerLink="/themes" (click)="drawer.close()">Thèmes</a>
+      </div>
+      <div class="bottom-icon">
+        <a mat-icon-button routerLink="/profile" (click)="drawer.close()">
+          <mat-icon>person</mat-icon>
+        </a>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-navbar [drawer]="drawer"></app-navbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-container *ngIf="!showNavbar">
+  <router-outlet></router-outlet>
+</ng-container>

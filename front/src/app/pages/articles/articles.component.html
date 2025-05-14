@@ -1,0 +1,16 @@
+<button class="new-article" mat-raised-button color="primary" routerLink="/new-article">Créer un article</button>
+
+<div class="articles-grid">
+  <mat-card *ngFor="let article of articles">
+    <mat-card-header>
+      <mat-card-title>
+        <a [routerLink]="['/articles', article.id]">Titre : {{ article.title }}</a>
+      </mat-card-title>
+      <mat-card-subtitle>Date : {{ formatDate(article.date) }}</mat-card-subtitle>
+      <mat-card-subtitle>Auteur : {{ article.author }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Contenu : {{ article.content }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

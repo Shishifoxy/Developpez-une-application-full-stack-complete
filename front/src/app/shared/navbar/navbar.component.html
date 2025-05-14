@@ -1,0 +1,25 @@
+<mat-toolbar color="primary" class="navbar">
+  <a routerLink="/home">
+    <img src="assets/logo_p6.png" alt="Logo MDD" class="logo" />
+  </a>
+  <span class="spacer"></span>
+
+  <!-- Desktop -->
+  <div class="nav-actions desktop-only" *ngIf="showConnectedLinks">
+    <button mat-button class="logout" (click)="logout()">Se déconnecter</button>
+    <a mat-button routerLink="/articles">Articles</a>
+    <a mat-button routerLink="/themes">Thèmes</a>
+    <a mat-icon-button routerLink="/profile">
+      <mat-icon>person</mat-icon>
+    </a>
+  </div>
+
+  <!-- Mobile -->
+  <div class="mobile-only" *ngIf="showConnectedLinks">
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<mat-divider></mat-divider>
