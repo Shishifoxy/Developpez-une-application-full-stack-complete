@@ -3,7 +3,6 @@ package com.openclassrooms.mddapi.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ public class Article {
      * L'auteur de l'article.
      * Lien vers l'entité User.
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)  // JPA standard, cascade les opérations de persistance sur author
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
@@ -61,6 +60,6 @@ public class Article {
      * Liste des commentaires associés à cet article.
      * Lien vers l'entité Comment.
      */
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)  // CascadeType.ALL pour supprimer les commentaires liés à l'article
     private List<Comment> comments = new ArrayList<>();
 }

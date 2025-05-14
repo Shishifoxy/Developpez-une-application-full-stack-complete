@@ -42,3 +42,25 @@ mat-card-title a {
     grid-template-columns: 1fr;
   }
 }
+.new-article {
+  margin-bottom: 15px;
+}
+
+.sort-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sort-container mat-icon {
+  margin-left: 5px;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}

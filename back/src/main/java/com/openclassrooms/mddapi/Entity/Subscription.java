@@ -3,7 +3,8 @@ package com.openclassrooms.mddapi.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import java.time.LocalDateTime;
 
 /**
@@ -29,6 +30,7 @@ public class Subscription {
      */
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @Cascade(CascadeType.ALL)
     private User user;
 
     /**
@@ -37,6 +39,7 @@ public class Subscription {
      */
     @ManyToOne
     @JoinColumn(name = "theme_id", nullable = false)
+    @Cascade(CascadeType.ALL)
     private Theme theme;
 
     /**

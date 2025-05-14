@@ -1,5 +1,12 @@
 <button class="new-article" mat-raised-button color="primary" routerLink="/new-article">Créer un article</button>
 
+<!-- Bouton de tri -->
+<div class="sort-container">
+  <span (click)="toggleSort()">
+    Trier par <mat-icon>arrow_drop_down</mat-icon>
+  </span>
+</div>
+
 <div class="articles-grid">
   <mat-card *ngFor="let article of articles">
     <mat-card-header>

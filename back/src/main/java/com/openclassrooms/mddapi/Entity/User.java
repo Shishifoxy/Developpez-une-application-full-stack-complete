@@ -2,6 +2,8 @@ package com.openclassrooms.mddapi.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,5 +57,6 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "theme_id")
     )
+    @Cascade(CascadeType.ALL)
     private Set<Theme> subscriptions = new HashSet<>();
 }
