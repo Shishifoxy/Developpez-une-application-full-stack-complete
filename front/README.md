@@ -1,4 +1,3 @@
-# P6-Full-Stack-reseau-dev
 
 ## Front
 
