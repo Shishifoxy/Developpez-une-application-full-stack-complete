@@ -55,7 +55,6 @@ public class SecurityConfig {
                 .authorizeRequests(auth -> auth
                         .requestMatchers(
                                 "/api/auth/**",
-                                // Autorisez à la fois avec et sans le préfixe /api
                                 "/v3/api-docs/**",
                                 "/api/v3/api-docs/**",
                                 "/swagger-ui/**",
@@ -85,13 +84,13 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // L'origine de ton frontend (si tu l'as sur localhost:4200)
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);  // Appliqué à toutes les routes
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }
