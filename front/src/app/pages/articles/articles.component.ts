@@ -8,7 +8,7 @@ import { ArticlesService, Article } from '../../services/article.service';
 })
 export class ArticlesComponent implements OnInit {
   articles: Article[] = [];
-  sortAscending = true; // Par défaut, tri ascendant
+  sortAscending = true;
 
   constructor(private articlesService: ArticlesService) {}
 
@@ -28,13 +28,11 @@ export class ArticlesComponent implements OnInit {
     });
   }
 
-  // Fonction pour trier les articles
   toggleSort() {
     this.sortAscending = !this.sortAscending;
     this.sortArticles();
   }
 
-  // Fonction qui applique le tri sur les articles
   sortArticles() {
     this.articles.sort((a, b) => {
       const comparison = this.sortAscending ? 1 : -1;

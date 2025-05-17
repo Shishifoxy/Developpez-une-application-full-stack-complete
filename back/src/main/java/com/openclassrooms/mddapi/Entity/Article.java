@@ -44,7 +44,7 @@ public class Article {
      * L'auteur de l'article.
      * Lien vers l'entité User.
      */
-    @ManyToOne(cascade = CascadeType.ALL)  // JPA standard, cascade les opérations de persistance sur author
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
@@ -60,6 +60,6 @@ public class Article {
      * Liste des commentaires associés à cet article.
      * Lien vers l'entité Comment.
      */
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)  // CascadeType.ALL pour supprimer les commentaires liés à l'article
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 }

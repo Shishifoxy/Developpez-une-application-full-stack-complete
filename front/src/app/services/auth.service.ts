@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
-import { HttpHeaders } from '@angular/common/http';
+import { ApiService } from '../core/services/api.service';
 
 interface LoginPayload {
   identifier: string;
@@ -29,17 +27,16 @@ interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}`;
   private tokenKey = 'auth_token';
   private authStatus = new BehaviorSubject<boolean>(this.hasToken());
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private api: ApiService,
+    private router: Router
+  ) {}
 
   login(identifier: string, password: string): Observable<any> {
-    return this.http.post<any>(
-      `${this.apiUrl}/api/auth/login`,
-      { identifier, password }
-    ).pipe(
+    return this.api.post<any>('api/auth/login', { identifier, password }).pipe(
       tap(response => {
         localStorage.setItem(this.tokenKey, response.token);
         this.authStatus.next(true);
@@ -48,21 +45,14 @@ export class AuthService {
   }
 
   register(data: RegisterPayload): Observable<AuthResponse> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-
-    return this.http.post<AuthResponse>(
-      `${this.apiUrl}/api/auth/register`,
-      data,
-      { headers }
-    ).pipe(
+    return this.api.post<AuthResponse>('api/auth/register', data).pipe(
       tap((res) => {
         localStorage.setItem(this.tokenKey, res.token);
         this.authStatus.next(true);
       })
     );
   }
+
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     this.authStatus.next(false);

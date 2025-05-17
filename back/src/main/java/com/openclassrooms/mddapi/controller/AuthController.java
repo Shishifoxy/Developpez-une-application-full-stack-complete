@@ -44,7 +44,6 @@ public class AuthController {
     @PostMapping("/register")
     @Operation(summary = "Inscription d'un utilisateur", description = "Permet de créer un nouvel utilisateur dans le système.")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDto request) {
-        // Vérification de l'existence de l'email ou du nom d'utilisateur
         if (userService.findByEmail(request.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body(new GlobalExceptionHandler.ErrorResponse("Email déjà utilisé", 400));
         }
@@ -52,17 +51,13 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new GlobalExceptionHandler.ErrorResponse("Nom d'utilisateur déjà utilisé", 400));
         }
 
-        // Création de l'utilisateur
         User user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         User savedUser = userService.save(user);
 
-        // Génération du token JWT
         String token = jwtUtils.generateToken(savedUser.getUsername());
-
-        // Retourne la réponse avec le token et les infos utilisateur
         return ResponseEntity.ok(new AuthResponseDto(token, userMapper.toDto(savedUser)));
     }
 

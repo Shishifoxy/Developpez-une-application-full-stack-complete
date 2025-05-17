@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { ApiService } from '../core/services/api.service';
 
 export interface Comment {
   id: number;
@@ -14,37 +13,19 @@ export interface Comment {
   providedIn: 'root',
 })
 export class CommentService {
-  private apiUrl = `${environment.apiUrl}/api/comments`;
+  private baseEndpoint = 'api/comments';
 
-  constructor(private http: HttpClient) {}
-
-  private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('auth_token');
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-    });
-  }
+  constructor(private api: ApiService) {}
 
   getCommentsByArticle(articleId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(
-      `${this.apiUrl}/${articleId}`,
-      { headers: this.getHeaders() }
-    );
+    return this.api.get<Comment[]>(`${this.baseEndpoint}/${articleId}`);
   }
 
   addComment(articleId: number, content: string): Observable<Comment> {
-    return this.http.post<Comment>(
-      `${this.apiUrl}/${articleId}`,
-      { content },
-      { headers: this.getHeaders() }
-    );
+    return this.api.post<Comment>(`${this.baseEndpoint}/${articleId}`, { content });
   }
 
   deleteComment(commentId: number): Observable<void> {
-    return this.http.delete<void>(
-      `${this.apiUrl}/${commentId}`,
-      { headers: this.getHeaders() }
-    );
+    return this.api.delete<void>(`${this.baseEndpoint}/${commentId}`);
   }
 }

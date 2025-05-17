@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { ApiService } from '../core/services/api.service';
 
 export interface Theme {
   id: number;
@@ -14,51 +13,27 @@ export interface Theme {
   providedIn: 'root',
 })
 export class ThemeService {
-  private apiUrl = `${environment.apiUrl}/api/themes`;
+  private baseEndpoint = 'api/themes';
 
-  constructor(private http: HttpClient) {}
-
-  private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('auth_token');
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-    });
-  }
+  constructor(private api: ApiService) {}
 
   getAllThemes(): Observable<Theme[]> {
-    return this.http.get<Theme[]>(this.apiUrl, {
-      headers: this.getHeaders()
-    });
+    return this.api.get<Theme[]>(this.baseEndpoint);
   }
 
   subscribeToTheme(themeId: number): Observable<boolean> {
-    return this.http.post<boolean>(
-      `${this.apiUrl}/subscribe/${themeId}`,
-      {},
-      { headers: this.getHeaders() }
-    );
+    return this.api.post<boolean>(`${this.baseEndpoint}/subscribe/${themeId}`, {});
   }
 
   unsubscribeFromTheme(themeId: number): Observable<boolean> {
-    return this.http.post<boolean>(
-      `${this.apiUrl}/unsubscribe/${themeId}`,
-      {},
-      { headers: this.getHeaders() }
-    );
+    return this.api.post<boolean>(`${this.baseEndpoint}/unsubscribe/${themeId}`, {});
   }
 
   getUserSubscriptions(): Observable<Theme[]> {
-    return this.http.get<Theme[]>(
-      `${this.apiUrl}/subscriptions`,
-      { headers: this.getHeaders() }
-    );
+    return this.api.get<Theme[]>(`${this.baseEndpoint}/subscriptions`);
   }
 
   getThemeById(id: number): Observable<Theme> {
-    return this.http.get<Theme>(
-      `${this.apiUrl}/${id}`,
-      { headers: this.getHeaders() }
-    );
+    return this.api.get<Theme>(`${this.baseEndpoint}/${id}`);
   }
 }

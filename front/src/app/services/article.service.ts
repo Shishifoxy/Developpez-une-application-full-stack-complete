@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {catchError, map, Observable, throwError} from 'rxjs';
-import { environment } from '../../environments/environment';
+import { Observable, map } from 'rxjs';
+import { ApiService } from '../core/services/api.service';
 
 export interface Article {
   id: number;
@@ -12,7 +11,7 @@ export interface Article {
     username: string;
   };
   date: string;
-  theme: number ;
+  theme: number;
   comments?: Comment[];
 }
 
@@ -27,22 +26,12 @@ export interface Comment {
   providedIn: 'root'
 })
 export class ArticlesService {
-  private apiUrl = `${environment.apiUrl}/api/articles`;
+  private baseEndpoint = 'api/articles';
 
-  constructor(private http: HttpClient) {}
-
-private getHeaders(): HttpHeaders {
-  const token = localStorage.getItem('auth_token');
-  return new HttpHeaders({
-    'Content-Type': 'application/json',
-    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-  });
-}
+  constructor(private api: ApiService) {}
 
   getAllArticles(): Observable<Article[]> {
-    return this.http.get<Article[]>(this.apiUrl, {
-      headers: this.getHeaders()
-    }).pipe(
+    return this.api.get<Article[]>(this.baseEndpoint).pipe(
       map((articles: any[]) => articles.map(article => ({
         ...article,
         createdAt: article.createdAt || new Date().toISOString(),
@@ -51,30 +40,12 @@ private getHeaders(): HttpHeaders {
       })))
     );
   }
-  addComment(articleId: number, content: string): Observable<Comment> {
-    return this.http.post<Comment>(
-      `${this.apiUrl}/${articleId}/comments`,
-      { content },
-      { headers: this.getHeaders() }
-    ).pipe(
-      map(response => ({
-        ...response,
-        username: response.username || 'Anonyme'
-      }))
-    );
-  }
 
   createArticle(articleData: { title: string; content: string; theme: string }): Observable<Article> {
-    return this.http.post<Article>(
-      this.apiUrl,
-      articleData,
-      { headers: this.getHeaders() }
-    );
+    return this.api.post<Article>(this.baseEndpoint, articleData);
   }
-getArticleById(id: number): Observable<Article> {
-  return this.http.get<Article>(`${this.apiUrl}/${id}`, {
-    headers: this.getHeaders()
-  });
-}
 
+  getArticleById(id: number): Observable<Article> {
+    return this.api.get<Article>(`${this.baseEndpoint}/${id}`);
+  }
 }
