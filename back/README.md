@@ -30,6 +30,8 @@ Projet backend d'une application développée avec Spring Boot et Maven.
 - `config/` : la configuration sécurité + Swagger
 - `src/main/resources/script.sql` : script SQL de création de la base de données
 
+
+```bash
 ---
 
 ## Pré-requis
@@ -69,6 +71,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 springdoc.api-docs.enabled=true
 springdoc.swagger-ui.enabled=true
 ```
+Créez un fichier .env à la racine du projet pour stocker les variables d'environnement.
 
 ---
 
