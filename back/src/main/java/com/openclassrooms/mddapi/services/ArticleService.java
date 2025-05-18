@@ -3,6 +3,7 @@ package com.openclassrooms.mddapi.services;
 import com.openclassrooms.mddapi.Entity.Article;
 import com.openclassrooms.mddapi.Entity.User;
 import com.openclassrooms.mddapi.Entity.Theme;
+import com.openclassrooms.mddapi.mapper.ArticleMapper;
 import com.openclassrooms.mddapi.repository.ArticleRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.repository.ThemeRepository;
@@ -28,6 +29,9 @@ public class ArticleService {
 
     @Autowired
     private ThemeRepository themeRepository;
+
+    @Autowired
+    private ArticleMapper articleMapper;
 
     /**
      * Récupère tous les articles.
@@ -65,6 +69,7 @@ public class ArticleService {
 
         Theme theme = themeRepository.findById(themeId)
                 .orElseThrow(() -> new RuntimeException("Thème introuvable"));
+
 
         Article article = new Article();
         article.setTitle(title);

@@ -40,3 +40,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   justify-content: center;
   padding-bottom: 2rem;
 }
+.mat-drawer-container,
+.mat-drawer,
+.mat-drawer-backdrop {
+  min-height: 100vh !important;
+  top: 0 !important;
+}
